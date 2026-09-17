@@ -1,0 +1,6 @@
+{
+  "name": "NSCA 科学体能训练系统",
+  "description": "基于 NSCA-CSCS 科学体系的动作指导库、Brzycki 1RM 渐进负荷追踪与周期化训练计划生成平台",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

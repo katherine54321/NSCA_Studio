@@ -121,7 +121,7 @@ export default function App() {
       </div>
 
       {/* 主工作区 */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 pb-24 md:pb-8">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-6 pb-20 md:pb-6">
         {/* 1. NSCA 标准动作指导库 */}
         {activeTab === 'library' && (
           <div className="space-y-6">
@@ -129,9 +129,9 @@ export default function App() {
           </div>
         )}
 
-        {/* 2. 智能化数据记录面板 (含下方 Chart.js 渐进超负荷趋势图) */}
+        {/* 2. 智能化数据记录面板：手机端仅展示纯训练记录，不展示渐进负荷趋势图；平板与桌面端保留集成折线图 */}
         {activeTab === 'logger' && (
-          <div className="space-y-10">
+          <div className="space-y-6 sm:space-y-8">
             <DataLogger
               logs={logs}
               onAddLog={handleAddLog}
@@ -141,8 +141,8 @@ export default function App() {
               selectedExercise={selectedExerciseForLogging}
             />
 
-            {/* 用户需求：“在页面下方生成一个折线图，能够根据历史记录，自动绘制用户在某个动作上 1RM 的渐进负荷（Progressive Overload）趋势图” */}
-            <div className="pt-6 border-t border-zinc-800">
+            {/* 用户明确指示：手机端按底部Tab区分，‘记训练’仅展示训练记录，不展示渐进负荷趋势图（趋势图由底部独立的‘趋势图’Tab专职呈现）；平板与桌面端保持集成呈现 */}
+            <div className="hidden md:block pt-6 border-t border-zinc-800">
               <div className="mb-4">
                 <span className="text-[11px] font-mono-tech text-[#39FF14] bg-[#39FF14]/10 border border-[#39FF14]/30 px-2 py-0.5 rounded">
                   INTEGRATED CHART.JS OVERVIEW
@@ -156,7 +156,7 @@ export default function App() {
           </div>
         )}
 
-        {/* 3. 独立的高清渐进负荷图表分析 */}
+        {/* 3. 独立的高清渐进负荷图表分析 (手机端‘趋势图’Tab直接直达) */}
         {activeTab === 'chart' && (
           <div className="space-y-6">
             <ProgressiveOverloadChart logs={logs} />
@@ -178,35 +178,35 @@ export default function App() {
         )}
       </main>
 
-      {/* 页脚 */}
-      <footer className="border-t border-zinc-800/80 bg-zinc-950 py-8 px-4 sm:px-6 lg:px-8 mt-12 mb-16 md:mb-0 text-zinc-500 text-xs">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="flex items-center gap-3">
-            <div className="w-6 h-6 rounded bg-zinc-900 border border-[#39FF14]/40 flex items-center justify-center font-mono-tech text-[10px] text-[#39FF14] font-bold">
+      {/* 页脚：调整与功能模块的间距，紧凑合理，手机端预留底部tab栏高度 */}
+      <footer className="border-t border-zinc-800/80 bg-zinc-950 py-5 sm:py-6 px-4 sm:px-6 lg:px-8 mt-4 sm:mt-8 mb-16 md:mb-0 text-zinc-500 text-xs">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-3 sm:gap-4">
+          <div className="flex items-center gap-2.5 sm:gap-3 text-center sm:text-left">
+            <div className="w-6 h-6 rounded bg-zinc-900 border border-[#39FF14]/40 flex items-center justify-center font-mono-tech text-[10px] text-[#39FF14] font-bold shrink-0">
               CSCS
             </div>
             <div>
               <p className="text-zinc-300 font-medium text-xs">
                 NSCA-CSCS 科学体能训练与数据记录系统
               </p>
-              <p className="text-[11px] text-zinc-500 font-mono-tech">
+              <p className="text-[10px] sm:text-[11px] text-zinc-500 font-mono-tech">
                 National Strength & Conditioning Association Standard Guidelines
               </p>
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-4 font-mono-tech text-[11px] text-zinc-400">
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 font-mono-tech text-[10px] sm:text-[11px] text-zinc-400">
             <span>BRZYCKI 1RM</span>
-            <span>•</span>
+            <span className="hidden sm:inline">•</span>
             <span>RPE / RIR AUTOREGULATION</span>
-            <span>•</span>
+            <span className="hidden sm:inline">•</span>
             <span>2-FOR-2 PROGRESSION</span>
-            <span>•</span>
+            <span className="hidden sm:inline">•</span>
             <span>4-WEEK PERIODIZATION</span>
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto mt-4 pt-4 border-t border-zinc-900 text-[11px] text-zinc-600 flex items-start gap-2">
+        <div className="max-w-7xl mx-auto mt-3 pt-3 border-t border-zinc-900 text-[10px] sm:text-[11px] text-zinc-600 flex items-start gap-2">
           <ShieldAlert className="w-3.5 h-3.5 text-zinc-500 shrink-0 mt-0.5" />
           <span>
             专业安全提示：本系统所有算法（含 Brzycki 预测 1RM、%1RM 负荷区间及 4 周周期化进程）均基于运动生理学理论模型。大重量训练必须在有合格保护员（Spotter）或安全防护杠（Safety Pins）保护下进行，并严格维持脊柱与关节生理中立位。
